@@ -18,7 +18,8 @@ vermelho = (255, 0, 0)
 azul = (0, 0, 255)
 
 largura_tela = 800
-altura_tela = 800
+altura_tela = 600
+
 tela = pygame.display.set_mode((largura_tela, altura_tela))
 font = pygame.font.Font(None, 28)
 pygame.display.set_caption('Gerenciador de tarefas')
