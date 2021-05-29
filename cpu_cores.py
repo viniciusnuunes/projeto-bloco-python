@@ -5,7 +5,7 @@ import properties as CONSTAT
 
 cpu_info = cpuinfo.get_cpu_info()
 
-def carrega_cpu_info(superior_surface, inferior_surface, tela, font):
+def exibeCpuCoreInfo(superior_surface, inferior_surface, tela, font):
     __mostra_info_cpu(superior_surface, tela, font)
     __mostra_uso_cpu(inferior_surface, tela)
 
