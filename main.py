@@ -36,7 +36,7 @@ while not finalizado:
         if tela_atual == 0:
             print('Tela de CPU')
             if count == 60:
-                CpuCoreInfo.carrega_cpu_info(
+                CpuCoreInfo.exibeCpuCoreInfo(
                     superior_surface, inferior_surface, tela, font)
                 count = 0
 
