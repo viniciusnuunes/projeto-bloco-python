@@ -25,16 +25,16 @@ def __desenha_uso_hd(surface, tela, font):
     
     # Desenhando a barra de disco
     largura = CONSTAT.LARGURA_TELA - 2 * 20
-    pygame.draw.rect(surface, CONSTAT.VERMELHO, (20, 50, largura, 70))
+    pygame.draw.rect(surface, CONSTAT.VERMELHO, (20, 50, largura, 30))
     tela.blit(surface, (0, 0))
 
     # Desenhando a barra de uso por cima da barra de disco
     largura = largura * disco_info.percent / 100
-    pygame.draw.rect(surface, CONSTAT.AZUL, (20, 50, largura, 70))
+    pygame.draw.rect(surface, CONSTAT.AZUL, (20, 50, largura, 30))
     tela.blit(surface, (0, 0))
 
     # Desenhando o texto acima da barra de uso de disco
-    texto_barra = "Uso de Disco: (" + str(disco_info.percent)+" %):"
+    texto_barra = "Porcentagem de uso de Disco: (" + str(disco_info.percent)+" %):"
     text = font.render(texto_barra, 1, CONSTAT.BRANCO)
     tela.blit(text, (20, 10))
 
@@ -46,9 +46,9 @@ def __desenha_uso_hd(surface, tela, font):
     # Uso de disco
     texto_uso = "Uso de Disco: (" + str(round(disk_uso/(1024*1024*1024), 2))+" GB):"
     text = font.render(texto_uso, 1, CONSTAT.BRANCO)
-    tela.blit(text, (20, 170))
+    tela.blit(text, (20, 200))
 
     # Espaço livre do disco
     texto_livre = "Espaço livre no Disco: (" + str(round(disk_livre/(1024*1024*1024), 2))+" GB):"
     text = font.render(texto_livre, 1, CONSTAT.BRANCO)
-    tela.blit(text, (20, 190))
+    tela.blit(text, (20, 250))
