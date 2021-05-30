@@ -39,6 +39,11 @@ def __desenha_uso_hd(surface, tela, font):
     tela.blit(text, (20, 10))
 
     # Total de disco
-    texto_uso = "Total de Disco: (" + str(round(disk_uso/(1024*1024*1024), 2))+" GB):"
-    text = font.render(texto_uso, 1, CONSTAT.BRANCO)
+    texto_total = "Total de Disco: (" + str(round(disk_total/(1024*1024*1024), 2))+" GB):"
+    text = font.render(texto_total, 1, CONSTAT.BRANCO)
     tela.blit(text, (20, 150))
+
+    # Uso de disco
+    texto_uso = "Uso de Disco: (" + str(round(disk_uso/(1024*1024*1024), 2))+" GB):"
+    text = font.render(texto_uso, 1, CONSTAT.BRANCO)
+    tela.blit(text, (20, 170))
