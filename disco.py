@@ -47,3 +47,8 @@ def __desenha_uso_hd(surface, tela, font):
     texto_uso = "Uso de Disco: (" + str(round(disk_uso/(1024*1024*1024), 2))+" GB):"
     text = font.render(texto_uso, 1, CONSTAT.BRANCO)
     tela.blit(text, (20, 170))
+
+    # Espaço livre do disco
+    texto_livre = "Espaço livre no Disco: (" + str(round(disk_livre/(1024*1024*1024), 2))+" GB):"
+    text = font.render(texto_livre, 1, CONSTAT.BRANCO)
+    tela.blit(text, (20, 190))
