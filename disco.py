@@ -1,4 +1,3 @@
-import cpuinfo
 import psutil
 import pygame
 import properties as CONSTAT
@@ -19,16 +18,16 @@ def __desenha_uso_hd(surface, tela, font):
     tela.blit(surface, (0, 0))
     
     # Desenhando a barra de disco
-    largura = CONSTAT.LARGURA_TELA - 2*20
+    largura = CONSTAT.LARGURA_TELA - 2 * 20
     pygame.draw.rect(surface, CONSTAT.VERMELHO, (20, 50, largura, 70))
-    tela.blit(surface, (0, (CONSTAT.ALTURA_TELA / 2)))
+    tela.blit(surface, (0, 0))
 
     # Desenhando a barra de uso por cima da barra de disco
     largura = largura * disco_info.percent / 100
     pygame.draw.rect(surface, CONSTAT.AZUL, (20, 50, largura, 70))
-    tela.blit(surface, (0, (CONSTAT.ALTURA_TELA / 3)))
+    tela.blit(surface, (0, 0))
 
     # Desenhando o texto acima da barra de uso de disco
     texto_barra = "Uso de Disco: (" + str(disco_info.percent)+" %):"
     text = font.render(texto_barra, 1, CONSTAT.BRANCO)
-    tela.blit(text, (20, (CONSTAT.ALTURA_TELA / 4)))
+    tela.blit(text, (20, 10))

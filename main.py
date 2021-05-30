@@ -3,6 +3,7 @@ import pygame
 import properties as CONSTAT
 import cpu_cores as CpuCoreInfo
 import disco as DiscoInfo
+import memoria as MemoriaInfo
 
 # Inicialização da tela e fonte
 pygame.font.init()
@@ -28,23 +29,28 @@ while not finalizado:
         if event.type == pygame.QUIT:
             finalizado = True
 
-        if tela_atual == 0:
-            if count == 30:
+        if count == 30:
+            if tela_atual == 0:
                 CpuCoreInfo.exibeCpuCoreInfo(tela, font)
                 count = 0
 
-        if tela_atual == 1:
-            DiscoInfo.exibeDiscoInfo(tela, font)
-            count = 29
+            if tela_atual == 1:
+                DiscoInfo.exibeDiscoInfo(tela, font)
+                count = 0
 
-        if tela_atual == 2:
-            print('Tela de MEMORIA')
+            if tela_atual == 2:
+                MemoriaInfo.exibeMemoriaInfo(tela, font)
+                cout = 0
+
+            count = 0
+
         if tela_atual == 3:
             print('Tela de REDE')
         if tela_atual == 4:
             print('Tela de TODAS')
 
         if event.type == pygame.KEYDOWN:
+            count = 29
             if event.key == pygame.K_LEFT:
                 proxima_tela = lista_telas[tela_atual] - 1
 
