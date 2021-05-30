@@ -2,6 +2,7 @@
 import pygame
 import properties as CONSTAT
 import cpu_cores as CpuCoreInfo
+import disco as DiscoInfo
 
 # Inicialização da tela e fonte
 pygame.font.init()
@@ -15,7 +16,7 @@ font = pygame.font.Font(None, 28)
 pygame.display.set_caption('Gerenciador de tarefas')
 
 clock = pygame.time.Clock()
-count = 60
+count = 30
 
 finalizado = False
 
@@ -28,13 +29,14 @@ while not finalizado:
             finalizado = True
 
         if tela_atual == 0:
-            print('Tela de CPU')
-            if count == 60:
+            if count == 30:
                 CpuCoreInfo.exibeCpuCoreInfo(tela, font)
                 count = 0
 
         if tela_atual == 1:
-            print('Tela de disco')
+            DiscoInfo.exibeDiscoInfo(tela, font)
+            count = 29
+
         if tela_atual == 2:
             print('Tela de MEMORIA')
         if tela_atual == 3:
@@ -69,7 +71,7 @@ while not finalizado:
 
         pygame.display.update()
 
-        clock.tick(60)
+        clock.tick(30)
         count += 1
 
 pygame.display.quit()
