@@ -4,7 +4,7 @@ import properties as CONSTAT
 import cpu_cores as CpuCoreInfo
 import disco as DiscoInfo
 import memoria as MemoriaInfo
-import network as NetworkInfo
+import rede as RedeInfo
 
 # Inicialização da tela e fonte
 pygame.font.init()
@@ -44,7 +44,7 @@ while not finalizado:
                 cout = 0
             
             if tela_atual == 3:
-                NetworkInfo.exibeNetworkInfo(tela, font)
+                RedeInfo.exibeRedeInfo(tela, font)
                 count = 0
 
             count = 0
