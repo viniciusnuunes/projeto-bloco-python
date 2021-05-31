@@ -25,10 +25,9 @@ def __desenha_memoria(surface, tela, font):
 
     # Desenhando a barra de uso por cima da barra de disco
     largura = ((round(mem_total/(1024*1024*1024), 2))) - (round(mem_uso/(1024*1024*1024), 2))
-    print(largura)
     largura2 = ((round(mem_total/(1024*1024*1024))))
-    print(largura2)
-    pygame.draw.rect(surface, CONSTAT.VERMELHO, (20, 50, largura2, 30))
+    largura_total = (CONSTAT.LARGURA_TELA - 2 * 20)
+    pygame.draw.rect(surface, CONSTAT.CINZA, (20, 50, largura_total, 30))
     pygame.draw.rect(surface, CONSTAT.AZUL, (20, 50, largura, 30))
     tela.blit(surface, (0, 90))
 
