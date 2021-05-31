@@ -36,7 +36,7 @@ def __desenha_memoria(surface, tela, font):
     total = round(memoria_info.total/(1024*1024*1024), 2)
 
     # Desenhando o texto acima da barra de memória
-    texto_barra = "Uso de Memória (Total: " + str(total) + " GB):"
+    texto_barra = "Uso de Memória: (" + str(total) + " GB):"
     text = font.render(texto_barra, 1, CONSTAT.BRANCO)
     tela.blit(text, (20, 10))
 
@@ -51,7 +51,7 @@ def __desenha_memoria(surface, tela, font):
     tela.blit(surface, (0, 100))
 
     # Total da porcentagem da memoria em uso
-    texto_total = "Porcentagem de memória utilizado (" + str(memoria_info.percent) + "%):"
+    texto_total = "Porcentagem de memória utilizado: (" + str(memoria_info.percent) + "%):"
     text = font.render(texto_total, 1, CONSTAT.BRANCO)
     tela.blit(text, (20, 100))
 
@@ -66,7 +66,7 @@ def __desenha_memoria(surface, tela, font):
     tela.blit(surface, (0, 200))
 
     # Total de memoria em uso
-    texto_total = "Total de Memória: (" + str(round(mem_uso/(1024*1024*1024), 2))+" GB):"
+    texto_total = "Total de Memória em uso: (" + str(round(mem_uso/(1024*1024*1024), 2))+" GB):"
     text = font.render(texto_total, 1, CONSTAT.BRANCO)
     tela.blit(text, (20, 200))
 
