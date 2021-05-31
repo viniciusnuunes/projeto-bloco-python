@@ -11,6 +11,12 @@ memoria_info = psutil.virtual_memory()
 def exibeMemoriaInfo(tela, font):
     __desenha_memoria(memoria_surface, tela, font)
 
+mem_virtual = psutil.virtual_memory()
+mem_total = mem_virtual[0]
+mem_uso = mem_virtual[3]
+mem_livre = mem_virtual[1]
+mem_percent = mem_virtual[2]
+swap_mem = psutil.swap_memory()
 
 def __desenha_memoria(surface, tela, font):
     # Colocando o fundo inteiro como preto
