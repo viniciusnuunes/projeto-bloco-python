@@ -41,17 +41,32 @@ def __desenha_memoria(surface, tela, font):
     text = font.render(texto_barra, 1, CONSTAT.BRANCO)
     tela.blit(text, (20, 10))
 
-    # Desenhando o total de disco
+    # Desenhando o total de memoria em uso
     largura = CONSTAT.LARGURA_TELA - 2 * 20
     pygame.draw.rect(surface, CONSTAT.VERMELHO, (20, 50, largura, 30))
     tela.blit(surface, (0, 100))
 
-    # Desenhando a barra de uso por cima do total de disco
+    # Desenhando a barra de uso por cima do total de memoria em uso
     largura = largura * memoria_info.percent / 100
     pygame.draw.rect(surface, CONSTAT.AZUL, (20, 50, largura, 30))
     tela.blit(surface, (0, 100))
 
-    # Total de disco
-    texto_total = "Total de Disco: (" + str(round(mem_total/(1024*1024*1024), 2))+" GB):"
+    # Total de memoria em uso
+    texto_total = "Total de Memória: (" + str(round(mem_uso/(1024*1024*1024), 2))+" GB):"
     text = font.render(texto_total, 1, CONSTAT.BRANCO)
     tela.blit(text, (20, 100))
+
+    # Desenhando o total de memoria livre
+    largura = CONSTAT.LARGURA_TELA - 2 * 20
+    pygame.draw.rect(surface, CONSTAT.VERMELHO, (20, 50, largura, 30))
+    tela.blit(surface, (0, 200))
+
+    # Desenhando a barra de uso por cima do total de memoria livre
+    largura = largura * memoria_info.percent / 100
+    pygame.draw.rect(surface, CONSTAT.AZUL, (20, 50, largura, 30))
+    tela.blit(surface, (0, 200))
+
+    # Total de memoria livre
+    texto_total = "Total de Memória Livre: (" + str(round(mem_livre/(1024*1024*1024), 2))+" GB):"
+    text = font.render(texto_total, 1, CONSTAT.BRANCO)
+    tela.blit(text, (20, 200))
