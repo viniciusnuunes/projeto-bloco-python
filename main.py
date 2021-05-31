@@ -5,6 +5,7 @@ import cpu_cores as CpuCoreInfo
 import disco as DiscoInfo
 import memoria as MemoriaInfo
 import rede as RedeInfo
+import resumo as ResumoInfo
 
 # Inicialização da tela e fonte
 pygame.font.init()
@@ -42,17 +43,14 @@ while not finalizado:
             if tela_atual == 2:
                 MemoriaInfo.exibeMemoriaInfo(tela, font)
                 cout = 0
-            
+
             if tela_atual == 3:
                 RedeInfo.exibeRedeInfo(tela, font)
                 count = 0
 
-            count = 0
-
-        if tela_atual == 3:
-            print('Tela de REDE')
-        if tela_atual == 4:
-            print('Tela de TODAS')
+            if tela_atual == 4:
+                ResumoInfo.exibeResumoInfo()
+                count = 0
 
         if event.type == pygame.KEYDOWN:
             count = 29

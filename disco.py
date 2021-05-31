@@ -7,14 +7,17 @@ disco_surface = pygame.surface.Surface(
 
 disco_info = psutil.disk_usage('.')
 
+
 def exibeDiscoInfo(tela, font):
     __desenha_uso_hd(disco_surface, tela, font)
+
 
 disk = psutil.disk_usage('/')
 disk_total = disk[0]
 disk_uso = disk[1]
 disk_livre = disk[2]
 disk_porcentagem = disk[3]
+
 
 def __desenha_uso_hd(surface, tela, font):
     # Colocando o fundo inteiro como preto
@@ -29,7 +32,8 @@ def __desenha_uso_hd(surface, tela, font):
     tela.blit(surface, (0, 90))
 
     # Capacidade total do disco
-    texto_total = "Total do Disco: (" + str(round(disk_total/(1024*1024*1024), 2))+" GB):"
+    texto_total = "Total do Disco: (" + \
+        str(round(disk_total/(1024*1024*1024), 2))+" GB):"
     text = font.render(texto_total, 1, CONSTAT.BRANCO)
     tela.blit(text, (20, 10))
 
@@ -39,11 +43,13 @@ def __desenha_uso_hd(surface, tela, font):
     tela.blit(text, (20, 40))
 
     # Espaço livre do disco
-    texto_livre = "Livre: (" + str(round(disk_livre/(1024*1024*1024), 2))+" GB):"
+    texto_livre = "Livre: (" + str(round(disk_livre /
+                                         (1024*1024*1024), 2))+" GB):"
     text = font.render(texto_livre, 1, CONSTAT.BRANCO)
     tela.blit(text, (20, 70))
 
     # Porcentagem de uso do disco
-    texto_barra = "Porcentagem de uso de Disco: (" + str(disco_info.percent)+" %):"
+    texto_barra = "Porcentagem de uso de Disco: (" + \
+        str(disco_info.percent)+" %):"
     text = font.render(texto_barra, 1, CONSTAT.BRANCO)
     tela.blit(text, (20, 100))
