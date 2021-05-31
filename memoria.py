@@ -25,15 +25,19 @@ def __desenha_memoria(surface, tela, font):
     surface.fill(CONSTAT.PRETO)
     tela.blit(surface, (0, 0))
 
-    # Desenhando a barra de uso por cima da barra de disco
+    # desenhando a barra
     largura = ((round(mem_total/(1024*1024*1024), 2))) - \
         (round(mem_uso/(1024*1024*1024), 2))
-    largura2 = ((round(mem_total/(1024*1024*1024))))
-    largura_total = (CONSTAT.LARGURA_TELA - 2 * 20)
+    
+    largura_total = CONSTAT.LARGURA_TELA - 2 * 20
     pygame.draw.rect(surface, CONSTAT.CINZA, (20, 50, largura_total, 30))
-    pygame.draw.rect(surface, CONSTAT.AZUL, (20, 50, largura, 30))
     tela.blit(surface, (0, 90))
 
+    # desenhando a barra de uso
+    largura = largura_total * memoria_info.percent / 100
+    pygame.draw.rect(surface, CONSTAT.AZUL, (20, 50, largura, 30))
+    tela.blit(surface, (0, 90))
+    
     # Desenhando o texto acima da barra de memória
     texto_barra = "Total de Memória: (" + \
         str(round(mem_total/(1024*1024*1024), 2)) + " GB):"
