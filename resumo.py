@@ -16,9 +16,9 @@ resumo_surface = pygame.surface.Surface(
     (CONSTAT.LARGURA_TELA, CONSTAT.ALTURA_TELA))
 
 memoria_info = psutil.virtual_memory()
-disco_info = psutil.disk_usage('.')
+
 ip = psutil.net_if_addrs()
-cpu_info = cpuinfo.get_cpu_info()
+ip_pc = ip['Ethernet'][1][1]
 
 disk = psutil.disk_usage('/')
 disk_total = disk[0]
@@ -27,12 +27,13 @@ mem = psutil.virtual_memory()
 mem_total = mem[0]
 mem_uso = mem[3]
 
+cpu_info = cpuinfo.get_cpu_info()
 nome_cpu = cpu_info['brand_raw']
 
-ip_pc = ip['Ethernet'][1][1]
 
 def exibeResumoInfo(tela, font):
     __desenha_resumo(resumo_surface, tela, font)
+
 
 def __desenha_resumo(surface, tela, font):
     # Colocando o fundo inteiro como preto
@@ -40,7 +41,7 @@ def __desenha_resumo(surface, tela, font):
     tela.blit(surface, (0, 0))
 
     # Desenhando a barra de uso por cima da barra de disco
-    largura = (CONSTAT.LARGURA_TELA - 2 * 20) - int(disco_info.percent)
+    largura = (CONSTAT.LARGURA_TELA - 2 * 20) - int(disk.percent)
     largura2 = (CONSTAT.LARGURA_TELA - 2 * 20)
     pygame.draw.rect(surface, CONSTAT.CINZA, (20, 50, largura2, 30))
     pygame.draw.rect(surface, CONSTAT.AZUL, (20, 50, largura, 30))
@@ -75,6 +76,7 @@ def __desenha_resumo(surface, tela, font):
     tela.blit(surface, (0, 150))
 
     # Total de memoria em uso
-    texto_total = "Memória em Uso: (" + str(round(mem_uso/(1024*1024*1024), 2))+" GB):"
+    texto_total = "Memória em Uso: (" + \
+        str(round(mem_uso/(1024*1024*1024), 2))+" GB):"
     text = font.render(texto_total, 1, CONSTAT.BRANCO)
     tela.blit(text, (20, 160))
