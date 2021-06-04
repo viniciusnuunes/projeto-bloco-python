@@ -25,9 +25,11 @@ def __desenha_uso_hd(surface, tela, font):
     tela.blit(surface, (0, 0))
 
     # Desenhando a barra de uso por cima da barra de disco
-    largura = (CONSTAT.LARGURA_TELA - 2 * 20) - int(disco_info.percent)
-    largura2 = (CONSTAT.LARGURA_TELA - 2 * 20)
-    pygame.draw.rect(surface, CONSTAT.CINZA, (20, 50, largura2, 30))
+    largura = CONSTAT.LARGURA_TELA - 2 * 20
+    pygame.draw.rect(surface, CONSTAT.CINZA, (20, 50, largura, 30))
+    tela.blit(surface, (0, 90))
+    
+    largura = largura * disco_info.percent / 100
     pygame.draw.rect(surface, CONSTAT.AZUL, (20, 50, largura, 30))
     tela.blit(surface, (0, 90))
 
