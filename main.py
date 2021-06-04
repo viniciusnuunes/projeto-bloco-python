@@ -49,7 +49,7 @@ while not finalizado:
                 count = 0
 
             if tela_atual == 4:
-                ResumoInfo.exibeResumoInfo()
+                ResumoInfo.exibeResumoInfo(tela, font)
                 count = 0
 
         if event.type == pygame.KEYDOWN:

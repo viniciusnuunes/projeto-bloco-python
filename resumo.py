@@ -1,117 +1,82 @@
 #import psutil
 import pygame
+import cpuinfo
 import sys
 import platform
 import psutil
+import pygame
+import properties as CONSTAT
+import cpu_cores as CpuCoreInfo
+import disco as DiscoInfo
+import memoria as MemoriaInfo
+import rede as RedeInfo
+import resumo as ResumoInfo
 
-# Inicialização Pygame
-pygame.init()
-pygame.font.init()
+resumo_surface = pygame.surface.Surface(
+    (CONSTAT.LARGURA_TELA, CONSTAT.ALTURA_TELA))
 
-# Define e mostra a tela
-largura_tela = 800
-altura_tela = 600
-tela = pygame.display.set_mode((largura_tela, altura_tela))
+memoria_info = psutil.virtual_memory()
 
-# Título da Tela e ciclo de atualização da tela
-pygame.display.set_caption("Gerenciador de tarefas")
-clock = pygame.time.Clock()
-count = 60
+ip = psutil.net_if_addrs()
+ip_pc = ip['Ethernet'][1][1]
 
-# Configuração do tamanho da fonte a ser usada
-font = pygame.font.Font(None, 32)
+disk = psutil.disk_usage('/')
+disk_total = disk[0]
 
-# Definições de superfícies das barras
-s1 = pygame.surface.Surface((largura_tela, altura_tela/4))
-s2 = pygame.surface.Surface((largura_tela, altura_tela/4))
-s3 = pygame.surface.Surface((largura_tela, altura_tela/4))
-s4 = pygame.surface.Surface((largura_tela, altura_tela/4))
+mem = psutil.virtual_memory()
+mem_total = mem[0]
+mem_uso = mem[3]
 
-# Definição de cores utilizadas na tela
-cordofundo = (0, 0, 0)
-cordabarra = (0, 0, 255)
-cordoindice = (255, 0, 0)
-cordafonte = (255, 255, 255)
+cpu_info = cpuinfo.get_cpu_info()
+nome_cpu = cpu_info['brand_raw']
 
 
-def mostraMem():
-    mem = psutil.virtual_memory()
-    return mem
+def exibeResumoInfo(tela, font):
+    __desenha_resumo(resumo_surface, tela, font)
 
 
-def mostraCPU():
-    cpu = psutil.cpu_percent(interval=0)
-    return cpu
+def __desenha_resumo(surface, tela, font):
+    # Colocando o fundo inteiro como preto
+    surface.fill(CONSTAT.PRETO)
+    tela.blit(surface, (0, 0))
 
+    # Desenhando a barra de uso por cima da barra de disco
+    largura = (CONSTAT.LARGURA_TELA - 2 * 20) - int(disk.percent)
+    largura2 = (CONSTAT.LARGURA_TELA - 2 * 20)
+    pygame.draw.rect(surface, CONSTAT.CINZA, (20, 50, largura2, 30))
+    pygame.draw.rect(surface, CONSTAT.AZUL, (20, 50, largura, 30))
+    tela.blit(surface, (0, 60))
 
-def mostraDisco():
-    disco = psutil.disk_usage('.')
-    return disco
+    # Desenhando o texto acima da barra de memória
+    texto_ip = f'CPU: {nome_cpu}'
+    text_ip = font.render(texto_ip, 1, CONSTAT.BRANCO)
+    tela.blit(text_ip, (20, 10))
 
+    # Desenhando o texto acima da barra de memória
+    texto_ip = f'IP: {ip_pc}'
+    text_ip = font.render(texto_ip, 1, CONSTAT.BRANCO)
+    tela.blit(text_ip, (20, 40))
 
-def desenha_barra_mem():
-    mem = mostraMem()
-    larg = largura_tela - 2*20
-    s1.fill(cordofundo)
-    pygame.draw.rect(s1, cordabarra, (20, 50, larg, 70))
-    tela.blit(s1, (0, 0))
-    larg = larg*mem.percent/100
-    pygame.draw.rect(s1, cordoindice, (20, 50, larg, 70))
-    tela.blit(s1, (0, 0))
-    total = round(mem.total/(1024*1024*1024), 2)
-    texto_barra = "Uso de Memória (Total: " + str(total) + \
-        "GB) (Utilizando: " + str(mem.percent) + " %):"
-    text = font.render(texto_barra, 1, cordafonte)
-    tela.blit(text, (20, 10))
+    # Capacidade total do disco
+    texto_total = "Total do Disco: (" + \
+        str(round(disk_total/(1024*1024*1024), 2))+" GB):"
+    text = font.render(texto_total, 1, CONSTAT.BRANCO)
+    tela.blit(text, (20, 70))
 
+    # desenhando a barra
+    largura = ((round(mem_total/(1024*1024*1024), 2))) - \
+        (round(mem_uso/(1024*1024*1024), 2))
+    largura_total = CONSTAT.LARGURA_TELA - 2 * 20
+    pygame.draw.rect(surface, CONSTAT.CINZA, (20, 50, largura_total, 30))
+    tela.blit(surface, (0, 200))
 
-def desenha_barra_cpu():
-    cpu = mostraCPU()
-    largura = largura_tela - 2*20
-    s2.fill(cordofundo)
-    pygame.draw.rect(s2, cordabarra, (20, 50, largura, 70))
-    tela.blit(s2, (0, altura_tela/4))
-    largura = largura * cpu/100
-    pygame.draw.rect(s2, cordoindice, (20, 50, largura, 70))
-    tela.blit(s2, (0, altura_tela/4))
-    texto_barra = "Uso de CPU: (" + str(cpu) + " %):"
-    texto_proc = "Cpu: (" + str(platform.processor()) + "):"
-    text = font.render(texto_barra, 1, cordafonte)
-    text_proc = font.render(texto_proc, 1, cordafonte)
-    tela.blit(text, (20, (altura_tela/4)))
-    tela.blit(text_proc, (20, (altura_tela/4) + 25))
+    # desenhando a barra de uso
+    largura = largura_total * memoria_info.percent / 100
+    pygame.draw.rect(surface, CONSTAT.AZUL, (20, 50, largura, 30))
+    tela.blit(surface, (0, 150))
 
-
-def desenha_uso_hd():
-    disco = mostraDisco()
-    largura = largura_tela - 2*20
-    s3.fill(cordofundo)
-    pygame.draw.rect(s3, cordabarra, (20, 50, largura, 70))
-    tela.blit(s3, (0, 2*altura_tela/4))
-    largura = largura * disco.percent/100
-    pygame.draw.rect(s3, cordoindice, (20, 50, largura, 70))
-    tela.blit(s3, (0, 2*altura_tela/4))
-    texto_barra = "Uso de Disco: (" + str(disco.percent)+" %):"
-    text = font.render(texto_barra, 1, cordafonte)
-    tela.blit(text, (20, (2*altura_tela/4)))
-
-
-def desenha_uso_hd2():
-    disco = mostraDisco()
-    largura = largura_tela - 2*20
-    s4.fill(cordofundo)
-    pygame.draw.rect(s4, cordabarra, (20, 50, largura, 70))
-    tela.blit(s4, (0, 3*altura_tela/4))
-    largura = largura * disco.percent/100
-    pygame.draw.rect(s4, cordoindice, (20, 50, largura, 70))
-    tela.blit(s4, (0, 3*altura_tela/4))
-    texto_barra = "Uso de Disco: (" + str(disco.percent)+" %):"
-    text = font.render(texto_barra, 1, cordafonte)
-    tela.blit(text, (20, (3*altura_tela/4)))
-
-
-def exibeResumoInfo():
-    desenha_barra_cpu()
-    desenha_barra_mem()
-    desenha_uso_hd()
-    desenha_uso_hd2()
+    # Total de memoria em uso
+    texto_total = "Memória em Uso: (" + \
+        str(round(mem_uso/(1024*1024*1024), 2))+" GB):"
+    text = font.render(texto_total, 1, CONSTAT.BRANCO)
+    tela.blit(text, (20, 160))
