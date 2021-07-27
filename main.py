@@ -1,6 +1,6 @@
 #import psutil
 import pygame
-import properties as CONSTAT
+import properties as CONSTANT
 import cpu_cores as CpuCoreInfo
 import disco as DiscoInfo
 import memoria as MemoriaInfo
@@ -14,7 +14,7 @@ pygame.display.init()
 lista_telas = [0, 1, 2, 3, 4]
 
 # Definições da tela, fonte e título da janela
-tela = pygame.display.set_mode((CONSTAT.LARGURA_TELA, CONSTAT.ALTURA_TELA))
+tela = pygame.display.set_mode((CONSTANT.LARGURA_TELA, CONSTANT.ALTURA_TELA))
 font = pygame.font.Font(None, 28)
 pygame.display.set_caption('Gerenciador de tarefas')
 

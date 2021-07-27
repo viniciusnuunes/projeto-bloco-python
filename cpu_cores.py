@@ -1,12 +1,12 @@
 import cpuinfo
 import psutil
 import pygame
-import properties as CONSTAT
+import properties as CONSTANT
 
 superior_surface = pygame.surface.Surface(
-    (CONSTAT.LARGURA_TELA, CONSTAT.ALTURA_TELA / 5))
+    (CONSTANT.LARGURA_TELA, CONSTANT.ALTURA_TELA / 5))
 inferior_surface = pygame.surface.Surface(
-    (CONSTAT.LARGURA_TELA, (CONSTAT.ALTURA_TELA / 5) * 4))
+    (CONSTANT.LARGURA_TELA, (CONSTANT.ALTURA_TELA / 5) * 4))
 
 cpu_info = cpuinfo.get_cpu_info()
 
@@ -16,7 +16,7 @@ def exibeCpuCoreInfo(tela, font):
 
 
 def __mostra_info_cpu(surface, tela, font):
-    surface.fill(CONSTAT.PRETO)
+    surface.fill(CONSTANT.PRETO)
     __mostra_texto(surface, "Nome:", "brand_raw", 10, font)
     __mostra_texto(surface, "Arquitetura:", "arch", 30, font)
     __mostra_texto(surface, "Palavra (bits):", "bits", 50, font)
@@ -25,7 +25,7 @@ def __mostra_info_cpu(surface, tela, font):
     tela.blit(surface, (0, 0))
     
 def __mostra_texto(surface, nome, chave, pos_y, font):
-    text = font.render(nome, True, CONSTAT.BRANCO)
+    text = font.render(nome, True, CONSTANT.BRANCO)
     surface.blit(text, (10, pos_y))
 
     if chave == "freq":
@@ -36,12 +36,12 @@ def __mostra_texto(surface, nome, chave, pos_y, font):
     else:        
         textInfo = str(cpu_info[chave])
 
-    text = font.render(textInfo, True, CONSTAT.BRANCO)
+    text = font.render(textInfo, True, CONSTANT.BRANCO)
     surface.blit(text, (200, pos_y))
     
 def __mostra_uso_cpu(surface, tela):
     cpu_percent = psutil.cpu_percent(interval=0, percpu=True)
-    surface.fill(CONSTAT.PRETO)
+    surface.fill(CONSTANT.PRETO)
 
     num_cpu = len(cpu_percent)
     x = y = 10
@@ -51,8 +51,8 @@ def __mostra_uso_cpu(surface, tela):
     d = x + desl
 
     for i in cpu_percent:
-        pygame.draw.rect(surface, CONSTAT.AZUL, (d, y, larg, alt))
-        pygame.draw.rect(surface, CONSTAT.CINZA, 	(d, y, larg, (1-i/100)*alt))
+        pygame.draw.rect(surface, CONSTANT.AZUL, (d, y, larg, alt))
+        pygame.draw.rect(surface, CONSTANT.CINZA, 	(d, y, larg, (1-i/100)*alt))
         d = d + larg + desl
     # parte mais abaixo da tela e à esquerda
-    tela.blit(surface, (0, CONSTAT.ALTURA_TELA/5))
+    tela.blit(surface, (0, CONSTANT.ALTURA_TELA/5))
