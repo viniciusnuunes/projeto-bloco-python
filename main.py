@@ -6,16 +6,26 @@ import disco as DiscoInfo
 import memoria as MemoriaInfo
 import rede as RedeInfo
 import resumo as ResumoInfo
+import arquivos_simples as ArquivoSimplesInfo
+import arquivos_detalhado as ArquivoDetalhadoInfo
+import pid as PidInfo
 
 # Inicialização da tela e fonte
 pygame.font.init()
 pygame.display.init()
 
-lista_telas = [0, 1, 2, 3, 4]
+lista_telas = [0, 1, 2, 3, 4, 5, 6, 7]
 
 # Definições da tela, fonte e título da janela
 tela = pygame.display.set_mode((CONSTANT.LARGURA_TELA, CONSTANT.ALTURA_TELA))
-font = pygame.font.Font(None, 28)
+lista_fontes = pygame.font.get_fonts()
+
+if 'calibri' in lista_fontes:
+    fonte = 'calibri'
+else:
+    fonte = None
+
+font = pygame.font.SysFont(fonte, 24)
 pygame.display.set_caption('Gerenciador de tarefas')
 
 clock = pygame.time.Clock()
@@ -51,6 +61,19 @@ while not finalizado:
             if tela_atual == 4:
                 ResumoInfo.exibeResumoInfo(tela, font)
                 count = 0
+            
+            if tela_atual == 5:
+                ArquivoSimplesInfo.exibeArquivosInfo(tela, font)
+                count = 0
+                
+            if tela_atual == 6:
+                ArquivoDetalhadoInfo.exibeArquivosInfo(tela, font)
+                count = 0
+                
+            if tela_atual == 7:
+                PidInfo.exibePidInfo(tela, font)
+                count = 0
+
 
         if event.type == pygame.KEYDOWN:
             count = 29
@@ -66,7 +89,7 @@ while not finalizado:
             if event.key == pygame.K_RIGHT:
                 proxima_tela = lista_telas[tela_atual] + 1
 
-                if proxima_tela > 4:
+                if proxima_tela > 7:
                     print('Não tem mais tela pra direita')
                     continue
 
@@ -74,7 +97,7 @@ while not finalizado:
 
             elif event.key == pygame.K_SPACE:
                 proxima_tela = 4
-                print('Vou para a ultima tela (tela Todos)')
+                print('Vou para a tela TODOS')
 
                 tela_atual = proxima_tela
 
