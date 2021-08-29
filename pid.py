@@ -10,11 +10,11 @@ pid_surface = pygame.surface.Surface(
     (CONSTANT.LARGURA_TELA, CONSTANT.ALTURA_TELA))
 
 
-def exibePidInfo(tela, font):
-    __desenha_pid(pid_surface, tela, font)
+def exibePidInfo(tela, font, pid):
+    __desenha_pid(pid_surface, tela, font, pid)
 
 
-def __desenha_pid(surface, tela, font):
+def __desenha_pid(surface, tela, font, pid):
     # Colocando o fundo inteiro como preto
     surface.fill(CONSTANT.PRETO)
     tela.blit(surface, (0, 0))
@@ -22,8 +22,6 @@ def __desenha_pid(surface, tela, font):
     texto = 'Informações do PID'
     texto = font.render(texto, 1, CONSTANT.BRANCO)
     tela.blit(texto, (20, 10))
-
-    pid = CONSTANT.PID
 
     texto = f'Nome: {pid.name()}'
     texto = font.render(texto, 1, CONSTANT.BRANCO)

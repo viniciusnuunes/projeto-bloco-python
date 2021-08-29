@@ -10,6 +10,8 @@ import arquivos_simples as ArquivoSimplesInfo
 import arquivos_detalhado as ArquivoDetalhadoInfo
 import pid as PidInfo
 
+PID = CONSTANT.PID
+
 # Inicialização da tela e fonte
 pygame.font.init()
 pygame.display.init()
@@ -71,8 +73,9 @@ while not finalizado:
                 count = 0
                 
             if tela_atual == 7:
-                PidInfo.exibePidInfo(tela, font)
+                PidInfo.exibePidInfo(tela, font, PID)
                 count = 0
+                
 
 
         if event.type == pygame.KEYDOWN:
@@ -95,11 +98,16 @@ while not finalizado:
 
                 tela_atual = proxima_tela
 
-            elif event.key == pygame.K_SPACE:
+            if event.key == pygame.K_SPACE:
                 proxima_tela = 4
                 print('Vou para a tela TODOS')
 
                 tela_atual = proxima_tela
+                
+            if event.key == pygame.K_F5 and tela_atual == 7:
+                PID = CONSTANT.geraPid()
+                print('PID Atualizado com sucesso...')
+                PidInfo.exibePidInfo(tela, font, PID)
 
         pygame.display.update()
 

@@ -1,13 +1,18 @@
 import psutil
 import random
 
-__lista_de_pids = psutil.pids()
-__pid_aleatorio = random.randint(0, len(__lista_de_pids))
-__pid_escolhido = __lista_de_pids[__pid_aleatorio]
 
-print('PID escoliho: ', __pid_escolhido)
+def geraPid():
+    __lista_de_pids = psutil.pids()
+    __pid_aleatorio = random.randint(0, len(__lista_de_pids))
+    __pid_escolhido = __lista_de_pids[__pid_aleatorio]
 
-PID = psutil.Process(__pid_escolhido)
+    print('PID escoliho: ', __pid_escolhido)
+
+    return psutil.Process(__pid_escolhido)
+
+
+PID = geraPid()
 
 PRETO = (0, 0, 0)
 BRANCO = (255, 255, 255)
