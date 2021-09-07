@@ -20,117 +20,47 @@ BUFFER_SIZE = 4096
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 lista_telas = [0, 1, 2, 3, 4, 5, 6, 7]
-tela_atual = lista_telas[0]
+tela_atual = lista_telas[7]
 
-#try:
-  #  if tela_atual == 0:
-sock.connect((HOST, PORT))
+# conecta, manda mensagem, recebe resposta, descompacta resposta, fecha conexão, retorna a resposta
 
-sock.send('cpu'.encode('utf-8'))
 
-cpu = sock.recv(BUFFER_SIZE)
+def info(message):
+    sock.connect((HOST, PORT))
 
-cpu = pickle.loads(cpu)
-print(cpu)
+    sock.send(message.encode('utf-8'))
 
-sock.close()
-    
-    # CpuCoreInfo.exibeCpuCoreInfo(tela, font)
-    # count = 0
+    response = sock.recv(BUFFER_SIZE)
+
+    response = pickle.loads(response)
+    print(response)
+
+    sock.close()
+
+    # exibir informações solicitada
+
+    return response
+
+if tela_atual == 0:
+    info_cpu = info("cpu")
 
 if tela_atual == 1:
-    sock.connect((HOST, PORT))
-
-    sock.send('disk'.encode('utf-8'))
-
-    data = sock.recv(BUFFER_SIZE)
-
-    data = pickle.loads(data)
-
-    sock.close()
-    # DiscoInfo.exibeDiscoInfo(tela, font)
-    # count = 0
+    info_disk = info("disk")
 
 if tela_atual == 2:
-    sock.connect((HOST, PORT))
-
-    sock.send('memory'.encode('utf-8'))
-
-    data = sock.recv(BUFFER_SIZE)
-
-    data = pickle.loads(data)
-
-    sock.close()
-    # MemoriaInfo.exibeMemoriaInfo(tela, font)
-    # count = 0
+    info_memory = info("memory")
 
 if tela_atual == 3:
-    sock.connect((HOST, PORT))
-
-    sock.send('network'.encode('utf-8'))
-
-    data = sock.recv(BUFFER_SIZE)
-
-    data = pickle.loads(data)
-
-    sock.close()
-    # RedeInfo.exibeRedeInfo(tela, font)
-    # count = 0
+    info_network = info("network")
 
 if tela_atual == 4:
-    sock.connect((HOST, PORT))
-
-    sock.send('resume'.encode('utf-8'))
-
-    data = sock.recv(BUFFER_SIZE)
-
-    data = pickle.loads(data)
-
-    sock.close()
-    # ResumoInfo.exibeResumoInfo(tela, font)
-    # count = 0
+    info_resume = info("resume")
 
 if tela_atual == 5:
-    sock.connect((HOST, PORT))
-
-    sock.send('simple-file'.encode('utf-8'))
-
-    data = sock.recv(BUFFER_SIZE)
-
-    data = pickle.loads(data)
-
-    sock.close()
-    # ArquivoSimplesInfo.exibeArquivosInfo(tela, font)
-    # count = 0
-
+    info_simple_files = info("simple-files")
 
 if tela_atual == 6:
-    sock.connect((HOST, PORT))
-
-    sock.send('detailed-file'.encode('utf-8'))
-
-    data = sock.recv(BUFFER_SIZE)
-
-    data = pickle.loads(data)
-
-    sock.close()
-    # ArquivoDetalhadoInfo.exibeArquivosInfo(tela, font)
-    # count = 0
+    info_detailed_files = info("detailed-files")
 
 if tela_atual == 7:
-    sock.connect((HOST, PORT))
-
-    sock.send('pid'.encode('utf-8'))
-
-    data = sock.recv(BUFFER_SIZE)
-
-    data = pickle.loads(data)
-
-    sock.close()
-    # PidInfo.exibePidInfo(tela, font, PID)
-    # count = 0
-    
-# except Exception as error:
-#     print(str(error))
-#     sys.exit(1)
-
+    info_pid = info("pid")
