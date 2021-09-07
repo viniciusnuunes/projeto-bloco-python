@@ -26,25 +26,15 @@ tela_atual = lista_telas[0]
   #  if tela_atual == 0:
 sock.connect((HOST, PORT))
 
-sock.send('cpu-cores'.encode('utf-8'))
+sock.send('cpu'.encode('utf-8'))
 
-cpu_cores = sock.recv(BUFFER_SIZE)
+cpu = sock.recv(BUFFER_SIZE)
 
-cpu_cores = pickle.loads(cpu_cores)
-print(cpu_cores)
+cpu = pickle.loads(cpu)
+print(cpu)
 
 sock.close()
-
-# sock.connect((HOST, PORT))
-
-# sock.send('cpu-percent'.encode('utf-8'))
-
-# cpu_percent = sock.recv(BUFFER_SIZE)
-
-# cpu_percent = pickle.loads(cpu_percent)
-# print(cpu_percent)
-
-# sock.close()
+    
     # CpuCoreInfo.exibeCpuCoreInfo(tela, font)
     # count = 0
 
