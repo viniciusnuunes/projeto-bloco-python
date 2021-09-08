@@ -1,5 +1,6 @@
 import psutil
 import random
+import socket
 
 
 def geraPid():
@@ -13,6 +14,11 @@ def geraPid():
 
 
 PID = geraPid()
+
+HOST = 'localhost'
+HOST_NAME = socket.gethostname()
+PORT = 3000
+BUFFER_SIZE = 4096
 
 PRETO = (0, 0, 0)
 BRANCO = (255, 255, 255)
