@@ -1,26 +1,26 @@
-#import psutil
+import socket
 import pygame
 import properties as CONSTANT
-import cpu_cores as CpuCoreInfo
-import disco as DiscoInfo
-import memoria as MemoriaInfo
-import rede as RedeInfo
-import resumo as ResumoInfo
-import arquivos_simples as ArquivoSimplesInfo
-import arquivos_detalhado as ArquivoDetalhadoInfo
+import cpu as CpuInfo
+import disk as DiskInfo
+import memory as MemoryInfo
+import network as NetworkInfo
+import resume as ResumeInfo
+import simpleFiles as SimpleFilesInfo
+import detailedFiles as DetailedFilesInfo
 import pid as PidInfo
+import getServerInformation as Server
 
-PID = CONSTANT.PID
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.connect((CONSTANT.HOST, CONSTANT.PORT))
 
-# Inicialização da tela e fonte
 pygame.font.init()
 pygame.display.init()
 
-lista_telas = [0, 1, 2, 3, 4, 5, 6, 7]
-
-# Definições da tela, fonte e título da janela
 tela = pygame.display.set_mode((CONSTANT.LARGURA_TELA, CONSTANT.ALTURA_TELA))
 lista_fontes = pygame.font.get_fonts()
+
+PID = Server.connectToServer(sock, 'pid')
 
 if 'calibri' in lista_fontes:
     fonte = 'calibri'
@@ -31,55 +31,62 @@ font = pygame.font.SysFont(fonte, 24)
 pygame.display.set_caption('Gerenciador de tarefas')
 
 clock = pygame.time.Clock()
-count = 30
+count = 60
 
 finalizado = False
 
+
+lista_telas = [0, 1, 2, 3, 4, 5, 6, 7]
 tela_atual = lista_telas[0]
 
-while not finalizado:
 
+while not finalizado:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             finalizado = True
 
-        if count == 30:
+        if count == 60:
             if tela_atual == 0:
-                CpuCoreInfo.exibeCpuCoreInfo(tela, font)
+                cpu = Server.connectToServer(sock, "cpu")
+                CpuInfo.exibeCpuCoreInfo(tela, font, cpu)
                 count = 0
-
+                
             if tela_atual == 1:
-                DiscoInfo.exibeDiscoInfo(tela, font)
+                disk = Server.connectToServer(sock, 'disk')
+                DiskInfo.exibeDiscoInfo(tela, font, disk)
                 count = 0
-
+                
             if tela_atual == 2:
-                MemoriaInfo.exibeMemoriaInfo(tela, font)
-                cout = 0
-
-            if tela_atual == 3:
-                RedeInfo.exibeRedeInfo(tela, font)
+                memory = Server.connectToServer(sock, 'memory')
+                MemoryInfo.exibeMemoriaInfo(tela, font, memory)
                 count = 0
-
+                
+            if tela_atual == 3:
+                network = Server.connectToServer(sock, 'network')
+                NetworkInfo.exibeRedeInfo(tela, font, network)
+                count = 0
+                
             if tela_atual == 4:
-                ResumoInfo.exibeResumoInfo(tela, font)
+                resume = Server.connectToServer(sock, 'resume')
+                ResumeInfo.exibeResumoInfo(tela, font, resume)
                 count = 0
             
             if tela_atual == 5:
-                ArquivoSimplesInfo.exibeArquivosInfo(tela, font)
+                files = Server.connectToServer(sock, 'simple-files')
+                SimpleFilesInfo.exibeArquivosInfo(tela, font, files)
                 count = 0
                 
             if tela_atual == 6:
-                ArquivoDetalhadoInfo.exibeArquivosInfo(tela, font)
+                files = Server.connectToServer(sock, 'detailed-files')
+                DetailedFilesInfo.exibeArquivosInfo(tela, font, files)
                 count = 0
                 
             if tela_atual == 7:
                 PidInfo.exibePidInfo(tela, font, PID)
                 count = 0
-                
-
 
         if event.type == pygame.KEYDOWN:
-            count = 29
+            count = 59
             if event.key == pygame.K_LEFT:
                 proxima_tela = lista_telas[tela_atual] - 1
 
@@ -103,15 +110,18 @@ while not finalizado:
                 print('Vou para a tela TODOS')
 
                 tela_atual = proxima_tela
-                
+
             if event.key == pygame.K_F5 and tela_atual == 7:
-                PID = CONSTANT.geraPid()
+                PID = Server.connectToServer(sock, 'pid')
                 print('PID Atualizado com sucesso...')
                 PidInfo.exibePidInfo(tela, font, PID)
 
-        pygame.display.update()
+        clock.tick(60)
+        # pygame.display.update()
+        pygame.display.flip()
 
-        clock.tick(30)
         count += 1
 
+Server.connectToServer(sock, 'close-application')
+sock.close()
 pygame.display.quit()
