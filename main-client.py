@@ -6,7 +6,7 @@ import pygame
 import properties as CONSTANT
 import cpu_cores as CpuInfo
 import disco as DiscoInfo
-# import memoria as MemoriaInfo
+import memoria as MemoriaInfo
 # import rede as RedeInfo
 # import resumo as ResumoInfo
 # import arquivos_simples as ArquivoSimplesInfo
@@ -66,6 +66,11 @@ while not finalizado:
                 disk = getMessageFromServer('disk')
                 DiscoInfo.exibeDiscoInfo(tela, font, disk)
                 count = 0
+                
+            if tela_atual == 2:
+                memory = getMessageFromServer('memory')
+                MemoriaInfo.exibeMemoriaInfo(tela, font, memory)
+                cout = 0
 
         if event.type == pygame.KEYDOWN:
             count = 59
