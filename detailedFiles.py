@@ -3,36 +3,36 @@ import time
 import properties as CONSTANT
 
 surface = pygame.surface.Surface(
-    (CONSTANT.LARGURA_TELA, CONSTANT.ALTURA_TELA))
+    (CONSTANT.SCREEN_WIDTH, CONSTANT.SCREEN_HEIGHT))
 
 
-def exibeArquivosInfo(tela, font, data):
-    surface.fill(CONSTANT.PRETO)
-    tela.blit(surface, (0, 0))
+def drawDetailedFiles(screen, font, data):
+    surface.fill(CONSTANT.BLACK)
+    screen.blit(surface, (0, 0))
 
     text = 'Arquivos e Pastas (Detalhado)'
-    text = font.render(text, 1, CONSTANT.BRANCO)
-    tela.blit(text, (20, 10))
+    text = font.render(text, 1, CONSTANT.WHITE)
+    screen.blit(text, (20, 10))
 
     text = '{:30}'.format("Nome")
     text = text + '{:11}'.format("Tamanho")
     text = text + '{:27}'.format("Data de Modificação")
     text = text + '{:27}'.format("Data de Criação")
 
-    text = font.render(text, 1, CONSTANT.BRANCO)
-    tela.blit(text, (20, 40))
+    text = font.render(text, 1, CONSTANT.WHITE)
+    screen.blit(text, (20, 40))
 
-    distancia_texto = 70
+    textDistance = 70
 
     for file in data:
         kb = (data[file][0])/1000
-        tamanho = '{:10}'.format(str('{:.2f}'.format(kb)) + ' KB')
-        nome_arquivo = '{:27}'.format(file)
+        size = '{:10}'.format(str('{:.2f}'.format(kb)) + ' KB')
+        fileName = '{:27}'.format(file)
 
-        text = nome_arquivo + " " + tamanho + \
+        text = fileName + " " + size + \
             time.ctime(data[file][2]) + \
             time.ctime(data[file][1])
 
-        text = font.render(text, 1, CONSTANT.BRANCO)
-        tela.blit(text, (20, distancia_texto))
-        distancia_texto += 20
+        text = font.render(text, 1, CONSTANT.WHITE)
+        screen.blit(text, (20, textDistance))
+        textDistance += 20

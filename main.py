@@ -17,12 +17,12 @@ sock.connect((CONSTANT.HOST, CONSTANT.PORT))
 pygame.font.init()
 pygame.display.init()
 
-tela = pygame.display.set_mode((CONSTANT.LARGURA_TELA, CONSTANT.ALTURA_TELA))
-lista_fontes = pygame.font.get_fonts()
+screen = pygame.display.set_mode((CONSTANT.SCREEN_WIDTH, CONSTANT.SCREEN_HEIGHT))
+fontList = pygame.font.get_fonts()
 
 PID = Server.connectToServer(sock, 'pid')
 
-if 'calibri' in lista_fontes:
+if 'calibri' in fontList:
     fonte = 'calibri'
 else:
     fonte = None
@@ -33,88 +33,88 @@ pygame.display.set_caption('Gerenciador de tarefas')
 clock = pygame.time.Clock()
 count = 60
 
-finalizado = False
+finished = False
 
 
-lista_telas = [0, 1, 2, 3, 4, 5, 6, 7]
-tela_atual = lista_telas[0]
+screenList = [0, 1, 2, 3, 4, 5, 6, 7]
+actualScreen = screenList[0]
 
 
-while not finalizado:
+while not finished:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            finalizado = True
+            finished = True
 
         if count == 60:
-            if tela_atual == 0:
+            if actualScreen == 0:
                 cpu = Server.connectToServer(sock, "cpu")
-                CpuInfo.exibeCpuCoreInfo(tela, font, cpu)
+                CpuInfo.drawCpu(screen, font, cpu)
                 count = 0
                 
-            if tela_atual == 1:
+            if actualScreen == 1:
                 disk = Server.connectToServer(sock, 'disk')
-                DiskInfo.exibeDiscoInfo(tela, font, disk)
+                DiskInfo.drawDisk(screen, font, disk)
                 count = 0
                 
-            if tela_atual == 2:
+            if actualScreen == 2:
                 memory = Server.connectToServer(sock, 'memory')
-                MemoryInfo.exibeMemoriaInfo(tela, font, memory)
+                MemoryInfo.drawMemory(screen, font, memory)
                 count = 0
                 
-            if tela_atual == 3:
+            if actualScreen == 3:
                 network = Server.connectToServer(sock, 'network')
-                NetworkInfo.exibeRedeInfo(tela, font, network)
+                NetworkInfo.drawNetwork(screen, font, network)
                 count = 0
                 
-            if tela_atual == 4:
+            if actualScreen == 4:
                 resume = Server.connectToServer(sock, 'resume')
-                ResumeInfo.exibeResumoInfo(tela, font, resume)
+                ResumeInfo.drawResume(screen, font, resume)
                 count = 0
             
-            if tela_atual == 5:
+            if actualScreen == 5:
                 files = Server.connectToServer(sock, 'simple-files')
-                SimpleFilesInfo.exibeArquivosInfo(tela, font, files)
+                SimpleFilesInfo.drawSimpleFiles(screen, font, files)
                 count = 0
                 
-            if tela_atual == 6:
+            if actualScreen == 6:
                 files = Server.connectToServer(sock, 'detailed-files')
-                DetailedFilesInfo.exibeArquivosInfo(tela, font, files)
+                DetailedFilesInfo.drawDetailedFiles(screen, font, files)
                 count = 0
                 
-            if tela_atual == 7:
-                PidInfo.exibePidInfo(tela, font, PID)
+            if actualScreen == 7:
+                PidInfo.drawPid(screen, font, PID)
                 count = 0
 
         if event.type == pygame.KEYDOWN:
             count = 59
             if event.key == pygame.K_LEFT:
-                proxima_tela = lista_telas[tela_atual] - 1
+                proxima_tela = screenList[actualScreen] - 1
 
                 if proxima_tela < 0:
                     print('Não tem mais tela pra esquerda')
                     continue
 
-                tela_atual = proxima_tela
+                actualScreen = proxima_tela
 
             if event.key == pygame.K_RIGHT:
-                proxima_tela = lista_telas[tela_atual] + 1
+                proxima_tela = screenList[actualScreen] + 1
 
                 if proxima_tela > 7:
                     print('Não tem mais tela pra direita')
                     continue
 
-                tela_atual = proxima_tela
+                actualScreen = proxima_tela
 
             if event.key == pygame.K_SPACE:
                 proxima_tela = 4
                 print('Vou para a tela TODOS')
 
-                tela_atual = proxima_tela
+                actualScreen = proxima_tela
 
-            if event.key == pygame.K_F5 and tela_atual == 7:
+            if event.key == pygame.K_F5 and actualScreen == 7:
                 PID = Server.connectToServer(sock, 'pid')
                 print('PID Atualizado com sucesso...')
-                PidInfo.exibePidInfo(tela, font, PID)
+                PidInfo.drawPid(screen, font, PID)
 
         clock.tick(60)
         # pygame.display.update()
