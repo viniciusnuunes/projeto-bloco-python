@@ -1,19 +1,4 @@
-import psutil
-import random
 import socket
-
-
-# def geraPid():
-#     __lista_de_pids = psutil.pids()
-#     __pid_aleatorio = random.randint(0, len(__lista_de_pids))
-#     __pid_escolhido = __lista_de_pids[__pid_aleatorio]
-
-#     print('PID escoliho: ', __pid_escolhido)
-
-#     return psutil.Process(__pid_escolhido)
-
-
-# PID = geraPid()
 
 HOST = 'localhost'
 HOST_NAME = socket.gethostname()
