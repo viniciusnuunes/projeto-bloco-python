@@ -8,7 +8,7 @@ import cpu_cores as CpuInfo
 import disco as DiscoInfo
 import memoria as MemoriaInfo
 import rede as RedeInfo
-# import resumo as ResumoInfo
+import resumo as ResumoInfo
 # import arquivos_simples as ArquivoSimplesInfo
 # import arquivos_detalhado as ArquivoDetalhadoInfo
 # import pid as PidInfo
@@ -76,6 +76,23 @@ while not finalizado:
                 network = getMessageFromServer('network')
                 RedeInfo.exibeRedeInfo(tela, font, network)
                 count = 0
+                
+            if tela_atual == 4:
+                resume = getMessageFromServer('resume')
+                ResumoInfo.exibeResumoInfo(tela, font, resume)
+                count = 0
+            
+            # if tela_atual == 5:
+            #     ArquivoSimplesInfo.exibeArquivosInfo(tela, font)
+            #     count = 0
+                
+            # if tela_atual == 6:
+            #     ArquivoDetalhadoInfo.exibeArquivosInfo(tela, font)
+            #     count = 0
+                
+            # if tela_atual == 7:
+            #     PidInfo.exibePidInfo(tela, font, PID)
+            #     count = 0
 
         if event.type == pygame.KEYDOWN:
             count = 59

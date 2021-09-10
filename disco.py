@@ -14,8 +14,6 @@ def exibeDiscoInfo(tela, font, data):
 
 
 def __desenha_uso_hd(surface, tela, font, data):
-    print(data)
-    # Colocando o fundo inteiro como preto
     surface.fill(CONSTANT.PRETO)
     tela.blit(surface, (0, 0))
 
