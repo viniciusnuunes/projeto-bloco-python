@@ -1,24 +1,15 @@
-import psutil
-import random
+import socket
 
+HOST = 'localhost'
+HOST_NAME = socket.gethostname()
+PORT = 3000
+BUFFER_SIZE = 4096
 
-def geraPid():
-    __lista_de_pids = psutil.pids()
-    __pid_aleatorio = random.randint(0, len(__lista_de_pids))
-    __pid_escolhido = __lista_de_pids[__pid_aleatorio]
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+GRAY = (100, 100, 100)
+RED = (255, 0, 0)
+BLUE = (0, 0, 255)
 
-    print('PID escoliho: ', __pid_escolhido)
-
-    return psutil.Process(__pid_escolhido)
-
-
-PID = geraPid()
-
-PRETO = (0, 0, 0)
-BRANCO = (255, 255, 255)
-CINZA = (100, 100, 100)
-VERMELHO = (255, 0, 0)
-AZUL = (0, 0, 255)
-
-LARGURA_TELA = 800
-ALTURA_TELA = 600
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
