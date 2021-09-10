@@ -7,7 +7,7 @@ import properties as CONSTANT
 import cpu_cores as CpuInfo
 import disco as DiscoInfo
 import memoria as MemoriaInfo
-# import rede as RedeInfo
+import rede as RedeInfo
 # import resumo as ResumoInfo
 # import arquivos_simples as ArquivoSimplesInfo
 # import arquivos_detalhado as ArquivoDetalhadoInfo
@@ -70,7 +70,12 @@ while not finalizado:
             if tela_atual == 2:
                 memory = getMessageFromServer('memory')
                 MemoriaInfo.exibeMemoriaInfo(tela, font, memory)
-                cout = 0
+                count = 0
+                
+            if tela_atual == 3:
+                network = getMessageFromServer('network')
+                RedeInfo.exibeRedeInfo(tela, font, network)
+                count = 0
 
         if event.type == pygame.KEYDOWN:
             count = 59
