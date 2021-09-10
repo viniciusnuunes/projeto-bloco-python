@@ -9,8 +9,8 @@ import disco as DiscoInfo
 import memoria as MemoriaInfo
 import rede as RedeInfo
 import resumo as ResumoInfo
-# import arquivos_simples as ArquivoSimplesInfo
-# import arquivos_detalhado as ArquivoDetalhadoInfo
+import arquivos_simples as ArquivoSimplesInfo
+import arquivos_detalhado as ArquivoDetalhadoInfo
 # import pid as PidInfo
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -82,13 +82,15 @@ while not finalizado:
                 ResumoInfo.exibeResumoInfo(tela, font, resume)
                 count = 0
             
-            # if tela_atual == 5:
-            #     ArquivoSimplesInfo.exibeArquivosInfo(tela, font)
-            #     count = 0
+            if tela_atual == 5:
+                files = getMessageFromServer('simple-files')
+                ArquivoSimplesInfo.exibeArquivosInfo(tela, font, files)
+                count = 0
                 
-            # if tela_atual == 6:
-            #     ArquivoDetalhadoInfo.exibeArquivosInfo(tela, font)
-            #     count = 0
+            if tela_atual == 6:
+                files = getMessageFromServer('detailed-files')
+                ArquivoDetalhadoInfo.exibeArquivosInfo(tela, font, files)
+                count = 0
                 
             # if tela_atual == 7:
             #     PidInfo.exibePidInfo(tela, font, PID)

@@ -1,28 +1,22 @@
-import os
 import pygame
 import properties as CONSTANT
 
-arquivo_surface = pygame.surface.Surface(
+surface = pygame.surface.Surface(
     (CONSTANT.LARGURA_TELA, CONSTANT.ALTURA_TELA))
 
 
-def exibeArquivosInfo(tela, font):
-    __desenha_arquivos(arquivo_surface, tela, font)
-
-
-def __desenha_arquivos(surface, tela, font):
-    # Colocando o fundo inteiro como preto
+def exibeArquivosInfo(tela, font, data):
     surface.fill(CONSTANT.PRETO)
     tela.blit(surface, (0, 0))
+    
+    text = 'Arquivos e Pastas (Simples)'
+    text = font.render(text, 1, CONSTANT.BRANCO)
+    tela.blit(text, (20, 10))
 
-    texto = 'Arquivos e Pastas (Simples)'
-    texto = font.render(texto, 1, CONSTANT.BRANCO)
-    tela.blit(texto, (20, 10))
+    textDistance = 40
 
-    arquivos = os.listdir()
-    distancia_texto = 40
+    for file in data:
+        text = font.render(file, 1, CONSTANT.BRANCO)
+        tela.blit(text, (20, textDistance))
+        textDistance += 20
 
-    for arquivo in arquivos:
-        texto = font.render(arquivo, 1, CONSTANT.BRANCO)
-        tela.blit(texto, (20, distancia_texto))
-        distancia_texto += 20
